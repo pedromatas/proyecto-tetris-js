@@ -1,0 +1,41 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+.cuerpo{
+    background-color: #C6CFA2;
+}
+
+/* pinta la parte externa de cada bloque */
+.bloque__contenedor{ 
+    display: flex;
+    
+    opacity: 0.2;
+    margin: 2px;
+    border: 5px solid black;
+    padding: 3px;
+   
+ 
+}
+/* pintar el cuadrado interno de cada bloque */
+.bloque__interior{
+    align-self: center;
+    justify-self: center;
+    background-color: black;
+    width: 10px;
+    height: 10px;
+   
+}
+
+
+/* contenedor del juego */
+.contenedor__juego{
+    border: 1px solid white;
+    height: 600px;
+    width: 300px;
+    display: grid;
+    grid-template-columns: repeat(10,30px);
+    grid-template-rows: repeat(20,30px);
+}
