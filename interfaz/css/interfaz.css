@@ -64,6 +64,14 @@
     grid-template-rows: repeat(20, 30px);
 }
 
+.tetrominio {
+    opacity: 0.8;
+}
+
+.final_line {
+    visibility: hidden;
+}
+
 
 /* aqui empieza el contenedor de la score*/
 
