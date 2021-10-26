@@ -114,3 +114,10 @@
     grid-template-columns: repeat(4, 30px);
     grid-template-rows: repeat(4, 30px);
 }
+
+.contenedor__gameover {
+    width: 700px;
+    height: 700px;
+    background-color: aqua;
+    border: 15px solid;
+}
