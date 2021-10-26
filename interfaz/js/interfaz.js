@@ -82,7 +82,7 @@ const tetrominioL = [
     [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2],
     [0, 1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1],
     [BOAR_WIDTH + 2, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 2 + 2],
-    [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1]
+    [0, BOAR_WIDTH, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1]
 ];
 
 
@@ -164,7 +164,7 @@ function undraw() {
 }
 
 // Mover los tetrominio hacia abajo cada medio segundo
-time = setInterval(moveDown, 500);
+time = setInterval(moveDown, 1000);
 
 // Mover los tetrominios al tocar las teclas de movimientos
 function controles(tecla) {
@@ -241,11 +241,156 @@ function moveRight() {
 
 // Rotar los tetrominios
 function rotar() {
-    undraw();
-    rotacionActualTetrominio++; // Eligo la siguiente forma del tetrominio
-    if (rotacionActualTetrominio === forma_del_tetrominio_elegido.length) {
-        rotacionActualTetrominio = 0;
+    
+    let arrayArotar = losTetrominios[random][rotacionActualTetrominio];
+    console.log(arrayArotar);
+
+    let iR1_1_X = losTetrominios[0][1];// tetrominio i r =2 
+    let iR1_2_X = iR1_1_X.map(e=>e+1);
+
+    let lR2 = losTetrominios[1][1];
+    let lR3 = losTetrominios[1][3];
+
+    let tR2 = losTetrominios[6][1];
+    let tR3 = losTetrominios[6][3];
+
+    let sR2 = losTetrominios[2][1];
+
+    let jR3 = losTetrominios[4][3];
+
+    let zR3 = losTetrominios[3][1];
+
+
+    let jR1 = losTetrominios[4][1];
+
+    let pasaYrota = false;
+
+
+
+    if ( (iR1_1_X === arrayArotar) && pegadoDerecha(iR1_1_X)){
+        pasaYrota = true;
     }
-    forma_del_tetrominio_elegido = losTetrominios[random][rotacionActualTetrominio];
-    draw();
+    if ( (iR1_1_X === arrayArotar) && pegadoDerecha(iR1_2_X) ){
+        pasaYrota = true;
+    }
+
+    
+
+    if ( (lR2 === arrayArotar) && lR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1)) ){
+        pasaYrota = true;
+    }
+    if ( (lR3 === arrayArotar) && lR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1)) ){
+        pasaYrota = true;
+    }
+
+
+
+    if ( (tR2 === arrayArotar) && tR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1)) ){
+        pasaYrota = true;
+    }
+
+
+
+    if ( (sR2 === arrayArotar) && sR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1)) ){
+        pasaYrota = true;
+    }    
+
+
+
+    if ( iR1_1_X === arrayArotar && iR1_1_X.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+        pasaYrota = true;
+    }
+
+
+    if ( iR1_1_X === arrayArotar && iR1_1_X.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+        pasaYrota = true;
+    }
+
+
+    if ( jR3 === arrayArotar && jR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+        pasaYrota = true;
+    }
+    if ( jR1 === arrayArotar && jR1.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
+        pasaYrota = true;
+    }
+    
+
+
+
+    if ( zR3 === arrayArotar && zR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+        pasaYrota = true;
+    }
+
+    if ( tR3 === arrayArotar && tR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+        pasaYrota = true;
+    }
+
+
+    function pegadoDerecha (arr){
+        // let arr = losTetrominios[random][rotacionActualTetrominio];
+        boolean0 = (( posicionActual + arr[0]) % BOAR_WIDTH ) === (9);
+        boolean1 = (( posicionActual + arr[1]) % BOAR_WIDTH ) === (9);
+        boolean2 = (( posicionActual + arr[2]) % BOAR_WIDTH ) === (9);
+        boolean3 = (( posicionActual + arr[3]) % BOAR_WIDTH ) === (9);
+        let Array2 = [boolean0,boolean1,boolean2,boolean3];
+        return Array2.every( e => e ===true );
+    }
+
+
+
+
+
+
+
+
+
+    // iR1_1 = iProhibidoR1_1();
+    // iR1_2 = iProhibidoR1_2();
+ 
+ 
+
+
+    if ( !pasaYrota){
+    undraw();
+    // const bordeD = forma_del_tetrominio_elegido.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1));
+    
+   
+    rotacionActualTetrominio++; // Eligo la siguiente forma del tetrominio
+
+ 
+
+    
+            
+            
+            if (rotacionActualTetrominio === forma_del_tetrominio_elegido.length) {
+                rotacionActualTetrominio = 0;
+            }
+
+            forma_del_tetrominio_elegido = losTetrominios[random][rotacionActualTetrominio];
+
+            draw();
+        }
+    
 }
+
+
+// [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH + 3],
+// [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 3 + 1],
+// [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH + 3],
+// [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 3 + 1]
+    
+// let Array1 = losTetrominios[0][1];
+// console.log(Array1);
+// boolean0 = (( 8 + Array1[0]) % BOAR_WIDTH ) === (9);
+// boolean1 = (( 8 + Array1[1]) % BOAR_WIDTH ) === (9);
+// boolean2 = (( 8 + Array1[2]) % BOAR_WIDTH ) === (9);
+// boolean3 = (( 8 + Array1[3]) % BOAR_WIDTH ) === (9);
+
+// let Array2 = [boolean0,boolean1,boolean2,boolean3];
+// console.log(Array2);
+
+let a = [1,2,3];
+let b = a.map(e=>e+1);
+console.log(b);
+
+
