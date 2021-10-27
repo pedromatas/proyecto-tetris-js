@@ -213,18 +213,27 @@ function freeze() {
 // funcion para cuando se pierde la partida
 function isGameOver() {
     if (posicionActual === 14) {
-        // window.location.reload();
-        let click = true;
+
+        clearInterval(time);
         const gameover = document.createElement('div');
         const botonRepetir = document.createElement('button');
-        // while(click===true){
+        botonRepetir.className = 'boton__repetir';
+        botonRepetir.textContent = "Try Again";
 
-        // }
         botonRepetir.addEventListener('click', () => {
-                window.location.reload();
-            })
-            // gameover.classList.add('contenedor__gameover');
-        gameover.className = "contenedor__gameover";
+
+            cuadrados.forEach(c => c.classList.remove('tetrominio'));
+            cuadrados.forEach(d => d.classList.remove('bloque_bloqueado'));
+            // aqui hay que poner otra vez el bloque final
+            time = setInterval(moveDown, 1000);
+
+            gameover.className = "gameover__off";
+
+
+
+        })
+
+        gameover.className = "contenedor__gameover gameover__on";
         gameover.appendChild(botonRepetir);
         document.body.appendChild(gameover);
 

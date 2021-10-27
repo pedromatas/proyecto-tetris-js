@@ -121,3 +121,16 @@
     background-color: aqua;
     border: 15px solid;
 }
+
+.boton__repetir {
+    width: 300px;
+    height: 300px;
+}
+
+.gameover__off {
+    visibility: hidden;
+}
+
+.gameover__on {
+    visibility: visible;
+}
