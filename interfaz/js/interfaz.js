@@ -153,6 +153,7 @@ function draw() {
     forma_del_tetrominio_elegido.forEach(v => {
         cuadrados[posicionActual + v].classList.add('tetrominio');
     })
+
 }
 
 
@@ -197,13 +198,45 @@ function moveDown() {
 function freeze() {
     // Si alguno algun bloque de la siguiente fila es el final
     if (forma_del_tetrominio_elegido.some(v => cuadrados[posicionActual + v + BOAR_WIDTH].classList.contains('bloque_bloqueado'))) {
+        console.log(posicionActual);
         // Entonces bloqueara el tetrominio
+        isGameOver();
         forma_del_tetrominio_elegido.forEach(v => cuadrados[posicionActual + v].classList.add('bloque_bloqueado'));
 
         random = Math.floor(Math.random() * losTetrominios.length);
         forma_del_tetrominio_elegido = losTetrominios[random][rotacionActualTetrominio];
         posicionActual = 4;
         draw();
+    }
+}
+
+// funcion para cuando se pierde la partida
+function isGameOver() {
+    if (posicionActual === 14) {
+
+        clearInterval(time);
+        const gameover = document.createElement('div');
+        const botonRepetir = document.createElement('button');
+        botonRepetir.className = 'boton__repetir';
+        botonRepetir.textContent = "Try Again";
+
+        botonRepetir.addEventListener('click', () => {
+
+            cuadrados.forEach(c => c.classList.remove('tetrominio'));
+            cuadrados.forEach(d => d.classList.remove('bloque_bloqueado'));
+            // aqui hay que poner otra vez el bloque final
+            time = setInterval(moveDown, 1000);
+
+            gameover.className = "gameover__off";
+
+
+
+        })
+
+        gameover.className = "contenedor__gameover gameover__on";
+        gameover.appendChild(botonRepetir);
+        document.body.appendChild(gameover);
+
     }
 }
 
@@ -241,12 +274,12 @@ function moveRight() {
 
 // Rotar los tetrominios
 function rotar() {
-    
+
     let arrayArotar = losTetrominios[random][rotacionActualTetrominio];
     console.log(arrayArotar);
 
-    let iR1_1_X = losTetrominios[0][1];// tetrominio i r =2 
-    let iR1_2_X = iR1_1_X.map(e=>e+1);
+    let iR1_1_X = losTetrominios[0][1]; // tetrominio i r =2 
+    let iR1_2_X = iR1_1_X.map(e => e + 1);
 
     let lR2 = losTetrominios[1][1];
     let lR3 = losTetrominios[1][3];
@@ -267,73 +300,73 @@ function rotar() {
 
 
 
-    if ( (iR1_1_X === arrayArotar) && pegadoDerecha(iR1_1_X)){
+    if ((iR1_1_X === arrayArotar) && pegadoDerecha(iR1_1_X)) {
         pasaYrota = true;
     }
-    if ( (iR1_1_X === arrayArotar) && pegadoDerecha(iR1_2_X) ){
-        pasaYrota = true;
-    }
-
-    
-
-    if ( (lR2 === arrayArotar) && lR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1)) ){
-        pasaYrota = true;
-    }
-    if ( (lR3 === arrayArotar) && lR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1)) ){
+    if ((iR1_1_X === arrayArotar) && pegadoDerecha(iR1_2_X)) {
         pasaYrota = true;
     }
 
 
 
-    if ( (tR2 === arrayArotar) && tR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1)) ){
+    if ((lR2 === arrayArotar) && lR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
+        pasaYrota = true;
+    }
+    if ((lR3 === arrayArotar) && lR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
         pasaYrota = true;
     }
 
 
 
-    if ( (sR2 === arrayArotar) && sR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1)) ){
-        pasaYrota = true;
-    }    
-
-
-
-    if ( iR1_1_X === arrayArotar && iR1_1_X.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+    if ((tR2 === arrayArotar) && tR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
         pasaYrota = true;
     }
 
 
-    if ( iR1_1_X === arrayArotar && iR1_1_X.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+
+    if ((sR2 === arrayArotar) && sR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
         pasaYrota = true;
     }
 
 
-    if ( jR3 === arrayArotar && jR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
-        pasaYrota = true;
-    }
-    if ( jR1 === arrayArotar && jR1.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
-        pasaYrota = true;
-    }
-    
 
-
-
-    if ( zR3 === arrayArotar && zR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
-        pasaYrota = true;
-    }
-
-    if ( tR3 === arrayArotar && tR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+    if (iR1_1_X === arrayArotar && iR1_1_X.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
         pasaYrota = true;
     }
 
 
-    function pegadoDerecha (arr){
+    if (iR1_1_X === arrayArotar && iR1_1_X.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+        pasaYrota = true;
+    }
+
+
+    if (jR3 === arrayArotar && jR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+        pasaYrota = true;
+    }
+    if (jR1 === arrayArotar && jR1.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
+        pasaYrota = true;
+    }
+
+
+
+
+    if (zR3 === arrayArotar && zR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+        pasaYrota = true;
+    }
+
+    if (tR3 === arrayArotar && tR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+        pasaYrota = true;
+    }
+
+
+    function pegadoDerecha(arr) {
         // let arr = losTetrominios[random][rotacionActualTetrominio];
-        boolean0 = (( posicionActual + arr[0]) % BOAR_WIDTH ) === (9);
-        boolean1 = (( posicionActual + arr[1]) % BOAR_WIDTH ) === (9);
-        boolean2 = (( posicionActual + arr[2]) % BOAR_WIDTH ) === (9);
-        boolean3 = (( posicionActual + arr[3]) % BOAR_WIDTH ) === (9);
-        let Array2 = [boolean0,boolean1,boolean2,boolean3];
-        return Array2.every( e => e ===true );
+        boolean0 = ((posicionActual + arr[0]) % BOAR_WIDTH) === (9);
+        boolean1 = ((posicionActual + arr[1]) % BOAR_WIDTH) === (9);
+        boolean2 = ((posicionActual + arr[2]) % BOAR_WIDTH) === (9);
+        boolean3 = ((posicionActual + arr[3]) % BOAR_WIDTH) === (9);
+        let Array2 = [boolean0, boolean1, boolean2, boolean3];
+        return Array2.every(e => e === true);
     }
 
 
@@ -346,31 +379,31 @@ function rotar() {
 
     // iR1_1 = iProhibidoR1_1();
     // iR1_2 = iProhibidoR1_2();
- 
- 
 
 
-    if ( !pasaYrota){
-    undraw();
-    // const bordeD = forma_del_tetrominio_elegido.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1));
-    
-   
-    rotacionActualTetrominio++; // Eligo la siguiente forma del tetrominio
 
- 
 
-    
-            
-            
-            if (rotacionActualTetrominio === forma_del_tetrominio_elegido.length) {
-                rotacionActualTetrominio = 0;
-            }
+    if (!pasaYrota) {
+        undraw();
+        // const bordeD = forma_del_tetrominio_elegido.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1));
 
-            forma_del_tetrominio_elegido = losTetrominios[random][rotacionActualTetrominio];
 
-            draw();
+        rotacionActualTetrominio++; // Eligo la siguiente forma del tetrominio
+
+
+
+
+
+
+        if (rotacionActualTetrominio === forma_del_tetrominio_elegido.length) {
+            rotacionActualTetrominio = 0;
         }
-    
+
+        forma_del_tetrominio_elegido = losTetrominios[random][rotacionActualTetrominio];
+
+        draw();
+    }
+
 }
 
 
@@ -378,7 +411,7 @@ function rotar() {
 // [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 3 + 1],
 // [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH + 3],
 // [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 3 + 1]
-    
+
 // let Array1 = losTetrominios[0][1];
 // console.log(Array1);
 // boolean0 = (( 8 + Array1[0]) % BOAR_WIDTH ) === (9);
@@ -389,8 +422,6 @@ function rotar() {
 // let Array2 = [boolean0,boolean1,boolean2,boolean3];
 // console.log(Array2);
 
-let a = [1,2,3];
-let b = a.map(e=>e+1);
+let a = [1, 2, 3];
+let b = a.map(e => e + 1);
 console.log(b);
-
-

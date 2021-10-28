@@ -114,3 +114,23 @@
     grid-template-columns: repeat(4, 30px);
     grid-template-rows: repeat(4, 30px);
 }
+
+.contenedor__gameover {
+    width: 700px;
+    height: 700px;
+    background-color: aqua;
+    border: 15px solid;
+}
+
+.boton__repetir {
+    width: 300px;
+    height: 300px;
+}
+
+.gameover__off {
+    visibility: hidden;
+}
+
+.gameover__on {
+    visibility: visible;
+}
