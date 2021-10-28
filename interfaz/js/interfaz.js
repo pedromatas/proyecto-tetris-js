@@ -180,6 +180,20 @@ function controles(tecla) {
     }
 }
 
+// bloquear la barra de desplazamiento con las teclas
+let keys = {37: 1, 38: 1, 39: 1, 40: 1};
+function preventDefault(e) {
+    e.preventDefault();
+  }
+  
+  function preventDefaultForScrollKeys(e) {
+    if (keys[e.keyCode]) {
+      preventDefault(e);
+      return false;
+    }
+  }
+  
+window.addEventListener('keydown', preventDefaultForScrollKeys, false);
 
 // Evento al tocar una tecla
 document.addEventListener('keydown', controles);
@@ -212,7 +226,7 @@ function freeze() {
 
 // funcion para cuando se pierde la partida
 function isGameOver() {
-    if (posicionActual === 14) {
+    if (posicionActual >= 10 && posicionActual<=19) {
 
         clearInterval(time);
         const gameover = document.createElement('div');
