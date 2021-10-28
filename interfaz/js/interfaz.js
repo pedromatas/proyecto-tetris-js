@@ -182,7 +182,7 @@ function controles(tecla) {
 
 
 // Evento al tocar una tecla
-document.addEventListener('keyup', controles);
+document.addEventListener('keydown', controles);
 
 
 // Funcion para moverse abajo
@@ -219,15 +219,17 @@ function isGameOver() {
         const botonRepetir = document.createElement('button');
         botonRepetir.className = 'boton__repetir';
         botonRepetir.textContent = "Try Again";
-
+document.removeEventListener('keydown', controles);
         botonRepetir.addEventListener('click', () => {
+            
 
-            cuadrados.forEach(c => c.classList.remove('tetrominio'));
-            cuadrados.forEach(d => d.classList.remove('bloque_bloqueado'));
+            // cuadrados.forEach(c => c.classList.remove('tetrominio'));
+            // cuadrados.forEach(d => d.classList.remove('bloque_bloqueado'));
             // aqui hay que poner otra vez el bloque final
             time = setInterval(moveDown, 1000);
 
             gameover.className = "gameover__off";
+            window.location.reload(); 
 
 
 
