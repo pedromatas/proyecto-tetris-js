@@ -218,8 +218,9 @@ function isGameOver() {
         const gameover = document.createElement('div');
         const botonRepetir = document.createElement('button');
         botonRepetir.className = 'boton__repetir';
-        botonRepetir.textContent = "Try Again";
-document.removeEventListener('keydown', controles);
+        botonRepetir.textContent = "TRY AGAIN";
+        //meter un label con la clase del  p score y el text.content.resultado del score
+        document.removeEventListener('keydown', controles);
         botonRepetir.addEventListener('click', () => {
             
 

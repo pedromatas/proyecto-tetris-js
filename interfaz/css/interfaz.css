@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family:'Pokemon-GB';
+    src: url(/Users/ManuGrande/Desktop/BOOTCAMP/proyecto-tetris/proyecto-tetris-js/font/Pokemon-GB.ttf) format('ttf');
+    font-style: normal;
+    font-weight: normal;
+  }
+
+
 .cuerpo {
     display: flex;
     position: relative;
@@ -116,17 +124,37 @@
 }
 
 .contenedor__gameover {
-    width: 700px;
-    height: 700px;
-    background-color: aqua;
-    border: 15px solid;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-left: 80vh;
+    margin-top: 40vh;
+    width: 30vh;
+    height: 20vh;
+    background-color: #72765d;
+    z-index: 1;
+
 }
 
 .boton__repetir {
-    width: 300px;
-    height: 300px;
+    width: 20vh;
+    height: 10vh;
+    background-color: #c6cda4;
+    color: #000000;
+    font-size: larger;
+    font-weight: bolder;
+    font-family: 'Pokemon-GB';
+    border:none;
 }
 
+.boton__repetir:hover{ 
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    transition: ease-in-out;
+    animation-duration: 10seg;
+    
+}
 .gameover__off {
     visibility: hidden;
 }
