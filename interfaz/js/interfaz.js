@@ -64,6 +64,7 @@ const BOAR_HEIGHT = 20;
 // Array con todos los cuadrados internos
 let cuadrados = Array.from(document.querySelectorAll('.bloque__contenedor'));
 
+
 console.log(cuadrados);
 
 // Rotaciones de los tetrominios
@@ -226,14 +227,14 @@ function freeze() {
 
 // funcion para cuando se pierde la partida
 function isGameOver() {
-    if (posicionActual >= 10 && posicionActual<=19) {
+    if (posicionActual >= 10 && posicionActual<=19 && posicionActual> boardWidth) {
 
         clearInterval(time);
         const gameover = document.createElement('div');
         const botonRepetir = document.createElement('button');
         botonRepetir.className = 'boton__repetir';
         botonRepetir.textContent = "Try Again";
-document.removeEventListener('keydown', controles);
+        document.removeEventListener('keydown', controles);
         botonRepetir.addEventListener('click', () => {
             
 
