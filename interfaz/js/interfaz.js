@@ -17,6 +17,25 @@ function generateBoardBlock() {
     return bloqueContenedor;
 }
 
+
+
+// funcion para pintar la estructura del mini board
+function generateMiniBoardBlock() {
+    // <div class="bloque__contenedor">
+    // <div class="bloque__interior"></div>
+    // </div>
+    const bloqueContenedor = document.createElement('div');
+    const bloqueInterno = document.createElement('div');
+    bloqueContenedor.className = 'bloque__contenedor_mini';
+    bloqueInterno.classList.add('bloque__interior_mini');
+
+    bloqueContenedor.appendChild(bloqueInterno);
+    return bloqueContenedor;
+}
+
+
+
+
 // a esta funcion le mandas la clase del bloque que vas a rellenar con las piezas el tamaño y altura
 // que va a tener y se rellenara con los cuadrados
 
@@ -25,6 +44,17 @@ function drawBoard(containerClass, width, heigth) {
 
     for (let i = 0; i < width * heigth; i++) {
         tablero.appendChild(generateBoardBlock());
+
+    }
+}
+
+
+// funcion para pintar de mini board en el dom
+function drawMiniBoard(containerClass, width, heigth) {
+    const tablero = document.querySelector(`.${containerClass}`);
+
+    for (let i = 0; i < width * heigth; i++) {
+        tablero.appendChild(generateMiniBoardBlock());
 
     }
 }
@@ -54,12 +84,13 @@ function drawBoardFinalLine(containerClass, width) {
 
 drawBoard('contenedor__juego', 10, 20);
 drawBoardFinalLine('contenedor__juego', 10);
-drawBoard('contenedor__score-cuadrados', 4, 4);
+drawMiniBoard('contenedor__score-cuadrados', 4, 4);
 
 
 // Ancho y alto del tablero
 const BOAR_WIDTH = 10;
 const BOAR_HEIGHT = 20;
+let nextRandom = 0;
 
 // Array con todos los cuadrados internos
 let cuadrados = Array.from(document.querySelectorAll('.bloque__contenedor'));
@@ -187,7 +218,9 @@ document.addEventListener('keyup', controles);
 
 // Funcion para moverse abajo
 function moveDown() {
+    mostrarSiguiente();
     undraw();
+    
     posicionActual += BOAR_WIDTH;
     draw();
     freeze();
@@ -203,7 +236,8 @@ function freeze() {
         isGameOver();
         forma_del_tetrominio_elegido.forEach(v => cuadrados[posicionActual + v].classList.add('bloque_bloqueado'));
 
-        random = Math.floor(Math.random() * losTetrominios.length);
+        random = nextRandom;
+        nextRandom = Math.floor(Math.random() * losTetrominios.length);
         forma_del_tetrominio_elegido = losTetrominios[random][rotacionActualTetrominio];
         posicionActual = 4;
         draw();
@@ -407,21 +441,44 @@ function rotar() {
 }
 
 
-// [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH + 3],
-// [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 3 + 1],
-// [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH + 3],
-// [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 3 + 1]
 
-// let Array1 = losTetrominios[0][1];
-// console.log(Array1);
-// boolean0 = (( 8 + Array1[0]) % BOAR_WIDTH ) === (9);
-// boolean1 = (( 8 + Array1[1]) % BOAR_WIDTH ) === (9);
-// boolean2 = (( 8 + Array1[2]) % BOAR_WIDTH ) === (9);
-// boolean3 = (( 8 + Array1[3]) % BOAR_WIDTH ) === (9);
 
-// let Array2 = [boolean0,boolean1,boolean2,boolean3];
-// console.log(Array2);
+//Mostrar el siguiente tetrominio en el panel pequeño
 
-let a = [1, 2, 3];
-let b = a.map(e => e + 1);
-console.log(b);
+    //Seleccionar los cuadrados del mini board
+    let cuadrados2 = Array.from(document.querySelectorAll('.bloque__contenedor_mini'));
+    console.log(cuadrados2);
+
+    //Posicion actual mini board
+    const miniBoardWidth = 4;
+    let posicionInicialMiniBoard = 0;
+
+    // tetrominios sin rotacion
+    const tetrominioMiniBoard = [
+        [miniBoardWidth, miniBoardWidth+1, miniBoardWidth+2, miniBoardWidth+3],// ltetrominio
+        [miniBoardWidth, miniBoardWidth+1, miniBoardWidth+2, miniBoardWidth*2],// ltetrominio
+        [miniBoardWidth+1, miniBoardWidth+2, miniBoardWidth*2, miniBoardWidth*2+1],// stretominio,
+        [miniBoardWidth, miniBoardWidth+1, miniBoardWidth*2, miniBoardWidth*2+1],//ztetrominio
+        [miniBoardWidth, miniBoardWidth+1, miniBoardWidth+2, miniBoardWidth*2+2],//jtetrominio
+        [0, 1, miniBoardWidth, miniBoardWidth+1],//otetrominio
+        [miniBoardWidth, miniBoardWidth+1, miniBoardWidth+2, miniBoardWidth*2+1]//ttetrominio
+    ];
+// funcion para mostrar el tetrominio siguiente en el mini board
+function mostrarSiguiente(){
+
+    //Eliminar el otro tetrominio del mini board
+    cuadrados2.forEach( e => {
+        e.classList.remove('tetrominio');
+    });
+
+    tetrominioMiniBoard[nextRandom].forEach( e => {
+        cuadrados2[posicionInicialMiniBoard + e].classList.add('tetrominio'); 
+    })
+}
+
+
+
+
+
+
+
