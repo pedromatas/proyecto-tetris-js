@@ -1,15 +1,25 @@
-const boardWidth = 10;
-const boardHeight = 20;
+// Constantes 
+const BOAR_WIDTH = 10;// Ancho del tablero
+const BOAR_HEIGHT = 20;// Alto del tablero
+const TableroGrande = document.querySelector('.contenedor__juego'); // Captura del contenedor del tablero grande
 
 
-// esta funcion pinta la estructura de cada bloque hay que hacer append a lo que devuelve 
-//para incluir el bloque
+// Variables
+let nextRandom = 0;
+
+
+// Score
+let scoreDisplay = document.querySelector('.contenedor__score-numero');
+let score = 0;
+
+
+
+// Esta funcion pinta la estructura de cada bloque hay que hacer append a lo que devuelve 
+// para incluir el bloque
 function generateBoardBlock() {
-    // <div class="bloque__contenedor">
-    // <div class="bloque__interior"></div>
-    // </div>
     const bloqueContenedor = document.createElement('div');
     const bloqueInterno = document.createElement('div');
+    
     bloqueContenedor.className = 'bloque__contenedor';
     bloqueInterno.classList.add('bloque__interior');
 
@@ -19,13 +29,11 @@ function generateBoardBlock() {
 
 
 
-// funcion para pintar la estructura del mini board
+// Funcion para pintar la estructura del tablero perqueño
 function generateMiniBoardBlock() {
-    // <div class="bloque__contenedor">
-    // <div class="bloque__interior"></div>
-    // </div>
     const bloqueContenedor = document.createElement('div');
     const bloqueInterno = document.createElement('div');
+
     bloqueContenedor.className = 'bloque__contenedor_mini';
     bloqueInterno.classList.add('bloque__interior_mini');
 
@@ -35,33 +43,36 @@ function generateMiniBoardBlock() {
 
 
 
-
 // a esta funcion le mandas la clase del bloque que vas a rellenar con las piezas el tamaño y altura
 // que va a tener y se rellenara con los cuadrados
-
 function drawBoard(containerClass, width, heigth) {
+
     const tablero = document.querySelector(`.${containerClass}`);
 
     for (let i = 0; i < width * heigth; i++) {
         tablero.appendChild(generateBoardBlock());
-
     }
+
 }
 
 
-// funcion para pintar de mini board en el dom
+
+// Funcion que pinta el tablero pequeño
 function drawMiniBoard(containerClass, width, heigth) {
+
     const tablero = document.querySelector(`.${containerClass}`);
 
     for (let i = 0; i < width * heigth; i++) {
         tablero.appendChild(generateMiniBoardBlock());
-
     }
+
 }
 
 
-// funcion que agregara una linea final
+
+// Funcion que agregara una linea final del tablero grande
 function generateBoardBlockFinal() {
+
     const bloqueFinal = document.createElement('div');
     bloqueFinal.classList.add('bloque__contenedor');
     bloqueFinal.classList.add('bloque_bloqueado');
@@ -70,113 +81,115 @@ function generateBoardBlockFinal() {
 }
 
 
+
 // Funcion para pintar la linea final que ayudara a detener los bloques
 function drawBoardFinalLine(containerClass, width) {
+
     const tablero = document.querySelector(`.${containerClass}`);
 
     for (let i = 0; i < width; i++) {
         tablero.appendChild(generateBoardBlockFinal());
     }
+
 }
 
 
 
+drawBoard('contenedor__juego', 10, 20);// Pinta el tablero grande
+drawBoardFinalLine('contenedor__juego', 10);// Pinta una line al final del tablero grande
+drawMiniBoard('contenedor__score-cuadrados', 4, 4);// Pinta el tablero pequeño
 
-drawBoard('contenedor__juego', 10, 20);
-drawBoardFinalLine('contenedor__juego', 10);
-drawMiniBoard('contenedor__score-cuadrados', 4, 4);
 
 
-// Ancho y alto del tablero
-const BOAR_WIDTH = 10;
-const BOAR_HEIGHT = 20;
-let nextRandom = 0;
-
-// Array con todos los cuadrados internos
+// Array con todos los cuadrados del tablero grande
 let cuadrados = Array.from(document.querySelectorAll('.bloque__contenedor'));
 
-console.log(cuadrados);
+
 
 // Rotaciones de los tetrominios
-
-//tetrominioI
-const tetrominioI = [
-    [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH + 3],
-    [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 3 + 1],
-    [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH + 3],
-    [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 3 + 1]
-];
-
-
-//tetrominioL
-const tetrominioL = [
-    [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2],
-    [0, 1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1],
-    [BOAR_WIDTH + 2, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 2 + 2],
-    [0, BOAR_WIDTH, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1]
-];
+        //tetrominio_I
+        const tetrominio_I = [
+            [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH + 3],
+            [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 3 + 1],
+            [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH + 3],
+            [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 3 + 1]
+        ];
 
 
-//tetrominioS
-const tetrominioS = [
-    [BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1],
-    [0, BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1],
-    [BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1],
-    [0, BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1]
-];
+        //tetrominio_L
+        const tetrominio_L = [
+            [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2],
+            [0, 1, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1],
+            [BOAR_WIDTH + 2, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 2 + 2],
+            [0, BOAR_WIDTH, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1]
+        ];
 
 
-//tetrominioZ
-const tetrominioZ = [
-    [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 2 + 2],
-    [2, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2 + 1],
-    [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 2 + 2],
-    [2, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2 + 1]
-];
+        //tetrominio_S
+        const tetrominio_S = [
+            [BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1],
+            [0, BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1],
+            [BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1],
+            [0, BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1]
+        ];
 
 
-//tetrominioJ
-const tetrominioJ = [
-    [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2 + 2],
-    [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1],
-    [BOAR_WIDTH, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 2 + 2],
-    [1, 2, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1]
-];
+        //tetrominio_Z
+        const tetrominio_Z = [
+            [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 2 + 2],
+            [2, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2 + 1],
+            [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 2 + 2],
+            [2, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2 + 1]
+        ];
 
 
-//tetrominioO
-const tetrominioO = [
-    [0, 1, BOAR_WIDTH, BOAR_WIDTH + 1],
-    [0, 1, BOAR_WIDTH, BOAR_WIDTH + 1],
-    [0, 1, BOAR_WIDTH, BOAR_WIDTH + 1],
-    [0, 1, BOAR_WIDTH, BOAR_WIDTH + 1]
-]
+        //tetrominio_J
+        const tetrominio_J = [
+            [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2 + 2],
+            [1, BOAR_WIDTH + 1, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1],
+            [BOAR_WIDTH, BOAR_WIDTH * 2, BOAR_WIDTH * 2 + 1, BOAR_WIDTH * 2 + 2],
+            [1, 2, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1]
+        ];
 
 
-//tetrominioT
-const tetrominioT = [
-    [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2 + 1],
-    [1, BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1],
-    [1, BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2],
-    [1, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2 + 1]
-]
+        //tetrominio_O
+        const tetrominio_O = [
+            [0, 1, BOAR_WIDTH, BOAR_WIDTH + 1],
+            [0, 1, BOAR_WIDTH, BOAR_WIDTH + 1],
+            [0, 1, BOAR_WIDTH, BOAR_WIDTH + 1],
+            [0, 1, BOAR_WIDTH, BOAR_WIDTH + 1]
+        ]
+
+
+        //tetrominio_T
+        const tetrominio_T = [
+            [BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2 + 1],
+            [1, BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH * 2 + 1],
+            [1, BOAR_WIDTH, BOAR_WIDTH + 1, BOAR_WIDTH + 2],
+            [1, BOAR_WIDTH + 1, BOAR_WIDTH + 2, BOAR_WIDTH * 2 + 1]
+        ]
+
 
 
 // Posicion incial en el tablero    
 let posicionActual = 4;
 
 
+
 // Seleccion de la rotacion de los tetrominio, hay cuatro posibilidades
 let rotacionActualTetrominio = 0;
 
 
+
 // Array de los tetrominios diponibles
-const losTetrominios = [tetrominioI, tetrominioL, tetrominioS, tetrominioZ, tetrominioJ, tetrominioO, tetrominioT];
+const losTetrominios = [tetrominio_I, tetrominio_L, tetrominio_S, tetrominio_Z, tetrominio_J, tetrominio_O, tetrominio_T];
+
 
 
 // Rotacion aleatoria del tetrominio
 let random = Math.floor(Math.random() * losTetrominios.length);
 let forma_del_tetrominio_elegido = losTetrominios[random][rotacionActualTetrominio];
+
 
 
 // dibujar el tetrominio
@@ -188,6 +201,7 @@ function draw() {
 }
 
 
+
 // Borrar el tetrominio
 function undraw() {
     forma_del_tetrominio_elegido.forEach(v => {
@@ -195,8 +209,12 @@ function undraw() {
     })
 }
 
+
+
 // Mover los tetrominio hacia abajo cada medio segundo
 time = setInterval(moveDown, 1000);
+
+
 
 // Mover los tetrominios al tocar las teclas de movimientos
 function controles(tecla) {
@@ -212,23 +230,25 @@ function controles(tecla) {
 }
 
 
+
 // Evento al tocar una tecla
 document.addEventListener('keyup', controles);
+
 
 
 // Funcion para moverse abajo
 function moveDown() {
     mostrarSiguiente();
     undraw();
-    
     posicionActual += BOAR_WIDTH;
     draw();
-    freeze();
+    generateRandomRetrominoe();
 }
 
 
+
 // Congelar el tetrominio al final 
-function freeze() {
+function generateRandomRetrominoe() {
     // Si alguno algun bloque de la siguiente fila es el final
     if (forma_del_tetrominio_elegido.some(v => cuadrados[posicionActual + v + BOAR_WIDTH].classList.contains('bloque_bloqueado'))) {
         console.log(posicionActual);
@@ -241,8 +261,11 @@ function freeze() {
         forma_del_tetrominio_elegido = losTetrominios[random][rotacionActualTetrominio];
         posicionActual = 4;
         draw();
+        addScore()
     }
 }
+
+
 
 // funcion para cuando se pierde la partida
 function isGameOver() {
@@ -263,8 +286,6 @@ function isGameOver() {
 
             gameover.className = "gameover__off";
 
-
-
         })
 
         gameover.className = "contenedor__gameover gameover__on";
@@ -273,6 +294,8 @@ function isGameOver() {
 
     }
 }
+
+
 
 // Mover el tetrominio a la izquierda hasta el borde
 function moveLetf() {
@@ -285,10 +308,11 @@ function moveLetf() {
     }
 
     if (forma_del_tetrominio_elegido.some(v => cuadrados[posicionActual + v].classList.contains('bloque_bloqueado'))) {
-        posicionActual += 1; // ????
+        posicionActual += 1;
     }
     draw();
 }
+
 
 
 // Mover el tetrominio a la derecha hasta llegar al borde
@@ -306,95 +330,98 @@ function moveRight() {
     draw();
 }
 
+
+
 // Rotar los tetrominios
 function rotar() {
 
     let arrayArotar = losTetrominios[random][rotacionActualTetrominio];
     console.log(arrayArotar);
 
-    let iR1_1_X = losTetrominios[0][1]; // tetrominio i r =2 
+    // tetrominio_i que no rotan en el borde
+    let iR1_1_X = losTetrominios[0][1]; 
     let iR1_2_X = iR1_1_X.map(e => e + 1);
 
+    // tetrominio_l que no rotan en el borde
     let lR2 = losTetrominios[1][1];
     let lR3 = losTetrominios[1][3];
 
+    // tetrominio_t que no rotan en el borde
     let tR2 = losTetrominios[6][1];
     let tR3 = losTetrominios[6][3];
 
+    // tetrominio_s que no rotan en el borde
     let sR2 = losTetrominios[2][1];
 
+    // tetrominio_j que no rotan en el borde
     let jR3 = losTetrominios[4][3];
+    let jR1 = losTetrominios[4][1];
 
+    // tetrominio_z que no rotan en el borde
     let zR3 = losTetrominios[3][1];
 
-
-    let jR1 = losTetrominios[4][1];
 
     let pasaYrota = false;
 
 
-
-    if ((iR1_1_X === arrayArotar) && pegadoDerecha(iR1_1_X)) {
-        pasaYrota = true;
-    }
-    if ((iR1_1_X === arrayArotar) && pegadoDerecha(iR1_2_X)) {
-        pasaYrota = true;
-    }
-
-
-
-    if ((lR2 === arrayArotar) && lR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
-        pasaYrota = true;
-    }
-    if ((lR3 === arrayArotar) && lR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
-        pasaYrota = true;
-    }
+        if ((iR1_1_X === arrayArotar) && pegadoDerecha(iR1_1_X)) {
+            pasaYrota = true;
+        }
+        if ((iR1_1_X === arrayArotar) && pegadoDerecha(iR1_2_X)) {
+            pasaYrota = true;
+        }
 
 
 
-    if ((tR2 === arrayArotar) && tR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
-        pasaYrota = true;
-    }
+        if ((lR2 === arrayArotar) && lR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
+            pasaYrota = true;
+        }
+        if ((lR3 === arrayArotar) && lR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
+            pasaYrota = true;
+        }
 
 
 
-    if ((sR2 === arrayArotar) && sR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
-        pasaYrota = true;
-    }
+        if ((tR2 === arrayArotar) && tR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
+            pasaYrota = true;
+        }
+        if (tR3 === arrayArotar && tR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+            pasaYrota = true;
+        }
+
+        
+
+        if ((sR2 === arrayArotar) && sR2.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
+            pasaYrota = true;
+        }
 
 
 
-    if (iR1_1_X === arrayArotar && iR1_1_X.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
-        pasaYrota = true;
-    }
-
-
-    if (iR1_1_X === arrayArotar && iR1_1_X.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
-        pasaYrota = true;
-    }
-
-
-    if (jR3 === arrayArotar && jR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
-        pasaYrota = true;
-    }
-    if (jR1 === arrayArotar && jR1.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
-        pasaYrota = true;
-    }
+        if (iR1_1_X === arrayArotar && iR1_1_X.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+            pasaYrota = true;
+        }
+        if (iR1_1_X === arrayArotar && iR1_1_X.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+            pasaYrota = true;
+        }
 
 
 
+        if (jR3 === arrayArotar && jR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+            pasaYrota = true;
+        }
+        if (jR1 === arrayArotar && jR1.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1))) {
+            pasaYrota = true;
+        }
 
-    if (zR3 === arrayArotar && zR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
-        pasaYrota = true;
-    }
 
-    if (tR3 === arrayArotar && tR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
-        pasaYrota = true;
-    }
+
+        if (zR3 === arrayArotar && zR3.some(v => ((posicionActual + v) % BOAR_WIDTH) === 0)) {
+            pasaYrota = true;
+        }
+
 
 
     function pegadoDerecha(arr) {
-        // let arr = losTetrominios[random][rotacionActualTetrominio];
         boolean0 = ((posicionActual + arr[0]) % BOAR_WIDTH) === (9);
         boolean1 = ((posicionActual + arr[1]) % BOAR_WIDTH) === (9);
         boolean2 = ((posicionActual + arr[2]) % BOAR_WIDTH) === (9);
@@ -405,29 +432,10 @@ function rotar() {
 
 
 
-
-
-
-
-
-
-    // iR1_1 = iProhibidoR1_1();
-    // iR1_2 = iProhibidoR1_2();
-
-
-
-
     if (!pasaYrota) {
         undraw();
-        // const bordeD = forma_del_tetrominio_elegido.some(v => ((posicionActual + v) % BOAR_WIDTH) === (BOAR_WIDTH - 1));
 
-
-        rotacionActualTetrominio++; // Eligo la siguiente forma del tetrominio
-
-
-
-
-
+        rotacionActualTetrominio++; 
 
         if (rotacionActualTetrominio === forma_del_tetrominio_elegido.length) {
             rotacionActualTetrominio = 0;
@@ -438,8 +446,8 @@ function rotar() {
         draw();
     }
 
-}
 
+}
 
 
 
@@ -458,11 +466,13 @@ function rotar() {
         [miniBoardWidth, miniBoardWidth+1, miniBoardWidth+2, miniBoardWidth+3],// ltetrominio
         [miniBoardWidth, miniBoardWidth+1, miniBoardWidth+2, miniBoardWidth*2],// ltetrominio
         [miniBoardWidth+1, miniBoardWidth+2, miniBoardWidth*2, miniBoardWidth*2+1],// stretominio,
-        [miniBoardWidth, miniBoardWidth+1, miniBoardWidth*2, miniBoardWidth*2+1],//ztetrominio
+        [miniBoardWidth, miniBoardWidth+1, miniBoardWidth*2+1, miniBoardWidth*2+2],//ztetrominio
         [miniBoardWidth, miniBoardWidth+1, miniBoardWidth+2, miniBoardWidth*2+2],//jtetrominio
         [0, 1, miniBoardWidth, miniBoardWidth+1],//otetrominio
         [miniBoardWidth, miniBoardWidth+1, miniBoardWidth+2, miniBoardWidth*2+1]//ttetrominio
     ];
+
+
 // funcion para mostrar el tetrominio siguiente en el mini board
 function mostrarSiguiente(){
 
@@ -477,8 +487,28 @@ function mostrarSiguiente(){
 }
 
 
+// Agregar un score
+function addScore(){
+    for(let i=0; i<199; i+=BOAR_WIDTH){
+        const columna = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9];
 
+        if( columna.every( index => cuadrados[index].classList.contains('bloque_bloqueado'))){
+            score += 10;
+            scoreDisplay.innerHTML = score;
 
+            columna.forEach( index => {
+                cuadrados[index].classList.remove('bloque_bloqueado');
+                cuadrados[index].classList.remove('tetrominio');
+            });
+            
+            const cuadradosRemovidos= cuadrados.splice(i,BOAR_WIDTH);
+            cuadrados = cuadradosRemovidos.concat(cuadrados);
+            
+            cuadrados.forEach( index =>  TableroGrande.appendChild(index) );
 
+        }
+    }
+
+}
 
 
