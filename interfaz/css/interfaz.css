@@ -171,10 +171,14 @@
 .botonAudio__style {
     margin-top: 20px;
     margin-bottom: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 1px solid #000000;
     width: 150px;
-    height: 40px;
+    height: 60px;
     background-color: #C6CFA2;
     font-family: "Pokemon-GB";
+    line-height : 18px;
 }
 
 .botonAudio__style:active {

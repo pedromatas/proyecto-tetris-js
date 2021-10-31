@@ -12,12 +12,16 @@ let nextRandom = 0;
 let scoreDisplay = document.querySelector('.contenedor__score-numero');
 let score = 0;
 
+
+// Música general del juego.
+
 let tetrisMusic = document.getElementById("tetrisMusic");
 
 function togglePlay() {
-  return tetrisMusic.paused ? tetrisMusic.play() : tetrisMusic.pause();
+    return tetrisMusic.paused ? tetrisMusic.play() : tetrisMusic.pause();
 };
-tetrisMusic.volume=0.2;
+tetrisMusic.volume = 0.2;
+tetrisMusic.loop = true;
 
 
 
@@ -310,9 +314,9 @@ function isGameOver() {
         const textSuck = document.createElement('p')
         const botonRepetir = document.createElement('button');
         textGameover.textContent = "GAME OVER";
-        textSuck.textContent= "YOU SUCK!";
+        textSuck.textContent = "YOU SUCK!";
         textSuck.className = 'contenedor__gameover--p2';
-        textGameover.className = 'contenedor__gameover--p';botonRepetir.className = 'boton__repetir';
+        textGameover.className = 'contenedor__gameover--p'; botonRepetir.className = 'boton__repetir';
         botonRepetir.textContent = "Try Again";
         document.removeEventListener('keydown', controles);
         botonRepetir.addEventListener('click', () => {
@@ -551,6 +555,8 @@ function addScore() {
 
             cuadrados.forEach(index => TableroGrande.appendChild(index));
 
+            const audioLine = new Audio("samples_line.mp3");
+            audioLine.play();
         }
     }
 
