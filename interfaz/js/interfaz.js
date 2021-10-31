@@ -12,6 +12,13 @@ let nextRandom = 0;
 let scoreDisplay = document.querySelector('.contenedor__score-numero');
 let score = 0;
 
+let tetrisMusic = document.getElementById("tetrisMusic");
+
+function togglePlay() {
+  return tetrisMusic.paused ? tetrisMusic.play() : tetrisMusic.pause();
+};
+tetrisMusic.volume=0.2;
+
 
 
 // Esta funcion pinta la estructura de cada bloque hay que hacer append a lo que devuelve 
@@ -221,12 +228,20 @@ time = setInterval(moveDown, 1000);
 function controles(tecla) {
     if (tecla.keyCode === 37) {
         moveLetf();
+        const audioMove = new Audio("samples_move.mp3");
+        audioMove.play();
     } else if (tecla.keyCode === 38) {
         rotar();
+        const audioRotate = new Audio("samples_rotate.mp3");
+        audioRotate.play();
     } else if (tecla.keyCode === 39) {
         moveRight();
+        const audioMove = new Audio("samples_move.mp3");
+        audioMove.play();
     } else if (tecla.keyCode === 40) {
         moveDown();
+        const audioMove = new Audio("samples_move.mp3");
+        audioMove.play();
     }
 }
 
@@ -276,6 +291,8 @@ function generateRandomRetrominoe() {
         nextRandom = Math.floor(Math.random() * losTetrominios.length);
         forma_del_tetrominio_elegido = losTetrominios[random][rotacionActualTetrominio];
         posicionActual = 4;
+        const audioLand = new Audio("samples_land.mp3");
+        audioLand.play();
         draw();
         addScore()
     }
@@ -289,8 +306,13 @@ function isGameOver() {
 
         clearInterval(time);
         const gameover = document.createElement('div');
+        const textGameover = document.createElement('p')
+        const textSuck = document.createElement('p')
         const botonRepetir = document.createElement('button');
-        botonRepetir.className = 'boton__repetir';
+        textGameover.textContent = "GAME OVER";
+        textSuck.textContent= "YOU SUCK!";
+        textSuck.className = 'contenedor__gameover--p2';
+        textGameover.className = 'contenedor__gameover--p';botonRepetir.className = 'boton__repetir';
         botonRepetir.textContent = "Try Again";
         document.removeEventListener('keydown', controles);
         botonRepetir.addEventListener('click', () => {
@@ -307,8 +329,13 @@ function isGameOver() {
         })
 
         gameover.className = "contenedor__gameover gameover__on";
+        gameover.appendChild(textGameover);
+        gameover.appendChild(textSuck);
         gameover.appendChild(botonRepetir);
         document.body.appendChild(gameover);
+        const audioGameOver = new Audio("samples_gameover.mp3");
+        audioGameOver.play(); //  Audio game over.
+        tetrisMusic.pause();
 
     }
 }

@@ -11,29 +11,32 @@
 
 <body class="cuerpo">
 
+  
     <div class="img">
         <img src="./interfaz/img/title_screen.jpg" alt="" class="contenedor__img">
     </div>
-
-    
-            <div class="contenedor__juego"></div>
-            <div class="contenedor__score-posicion ">
-                <div class="contenedor__score">
-                    <p>Score</p>
-                    <div class="contenedor__score-numero">
-                        <p class="score-numero">0</p>
-                    </div>
-                    <div class="contenedor__score-cuadrados">
-
-                    </div>
-                    <div class="contenedor__score-move">
-                        <p>← → ↓ Move</p>
-                    </div>
-                    <div class="contenedor__score-rotate">
-                        <p>↑ Rotate</p>
-                    </div>
-                </div>
-            </div>      
+    <div class="contenedor__juego"></div>
+    <div class="contenedor__score-posicion ">
+        <div class="contenedor__score">
+            <p>Score</p>
+            <div class="contenedor__score-numero">
+                <p class="score-numero">0</p>
+            </div>
+            <div class="contenedor__score-cuadrados">
+            </div>
+            <div class="contenedor__score-move">
+                <p>Move</p>
+                <p>← → ↓</p>
+            </div>
+            <div class="contenedor__score-rotate">
+                <p>↑ Rotate</p>
+            </div>
+            <!-- Clase de audio de HTML con función onClick  -->
+            <audio id="tetrisMusic" src="tetrismusic.mp3" preload="auto">
+            </audio>
+            <button class="botonAudio__style" onClick="togglePlay()">Music On/Off</button>
+        </div>
+    </div>
 
     <script src="./interfaz/js/interfaz.js"></script>
 </body>
