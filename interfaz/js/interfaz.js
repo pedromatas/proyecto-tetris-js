@@ -285,7 +285,7 @@ function generateRandomRetrominoe() {
 
 // funcion para cuando se pierde la partida
 function isGameOver() {
-    if (posicionActual >= 10 && posicionActual <= 19 && posicionActual > boardWidth) {
+    if (posicionActual >= 10 && posicionActual <= 19 && posicionActual > BOAR_WIDTH) {
 
         clearInterval(time);
         const gameover = document.createElement('div');
