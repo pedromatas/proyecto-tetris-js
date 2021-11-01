@@ -313,8 +313,11 @@ function isGameOver() {
         const textGameover = document.createElement('p')
         const textSuck = document.createElement('p')
         const botonRepetir = document.createElement('button');
+        const scoreGameOver = document.createElement('p');
         textGameover.textContent = "GAME OVER";
         textSuck.textContent = "YOU SUCK!";
+        scoreGameOver.textContent = score;
+
         textSuck.className = 'contenedor__gameover--p2';
         textGameover.className = 'contenedor__gameover--p'; botonRepetir.className = 'boton__repetir';
         botonRepetir.textContent = "Try Again";
@@ -335,6 +338,7 @@ function isGameOver() {
         gameover.className = "contenedor__gameover gameover__on";
         gameover.appendChild(textGameover);
         gameover.appendChild(textSuck);
+        gameover.appendChild(scoreGameOver);
         gameover.appendChild(botonRepetir);
         document.body.appendChild(gameover);
         const audioGameOver = new Audio("samples_gameover.mp3");
@@ -542,7 +546,7 @@ function addScore() {
         const columna = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9];
 
         if (columna.every(index => cuadrados[index].classList.contains('bloque_bloqueado'))) {
-            score += 10;
+            score += 50;
             scoreDisplay.innerHTML = score;
 
             columna.forEach(index => {
