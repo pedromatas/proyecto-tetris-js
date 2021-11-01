@@ -148,9 +148,9 @@
     width: 280px;
     height: 250px;
     color: #000000;
-    -webkit-box-shadow: inset 36px -36px 0px -30px rgba(140,147,112,0.99), inset -37px 37px 0px -30px rgba(140,147,112,0.99), 0px 0px 0px 7px rgba(87,91,70,0.99); 
-    box-shadow: inset 36px -36px 0px -30px rgba(140,147,112,0.99), inset -37px 37px 0px -30px rgba(140,147,112,0.99), 0px 0px 0px 7px rgba(87,91,70,0.99);
     background-color: #C6CFA2;
+    -webkit-box-shadow: 0px 0px 0px 4px #868D6B, 0px 0px 0px 6px #ACB48B, 0px 0px 0px 9px #424245, 0px 0px 0px 9px #424245, inset 0px 0px 0px 4px #3f4638; 
+box-shadow: 0px 0px 0px 4px #868D6B, 0px 0px 0px 6px #ACB48B, 0px 0px 0px 9px #424245, 0px 0px 0px 9px #424245, inset 0px 0px 0px 4px #3f4638;
     z-index: 1;
     font-family: "Pokemon-GB";
 }
