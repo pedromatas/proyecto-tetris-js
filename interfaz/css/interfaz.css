@@ -6,7 +6,7 @@
 
 @font-face {
     font-family: "Pokemon-GB";
-    src: url(/interfaz/font/Pokemon-GB.ttf);
+    src: url(/Pokemon-GB.ttf);
 }
 .cuerpo {
     display: flex;
