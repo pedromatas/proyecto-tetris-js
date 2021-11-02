@@ -316,8 +316,7 @@ function isGameOver() {
         const scoreGameOver = document.createElement('p');
         textGameover.textContent = "GAME OVER";
         textSuck.textContent = "YOU SUCK!";
-        scoreGameOver.textContent = score;
-
+        scoreGameOver.textContent = score + " points";
         textSuck.className = 'contenedor__gameover--p2';
         textGameover.className = 'contenedor__gameover--p'; botonRepetir.className = 'boton__repetir';
         botonRepetir.textContent = "Try Again";
